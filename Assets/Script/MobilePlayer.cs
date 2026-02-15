@@ -12,7 +12,8 @@ public class MobilePlayer : MonoBehaviour
     public GameObject arrowPrefab;
     public Transform firePoint;
 
-    // NEW: Reference to stats so we know if we have Multishot/Ricochet
+    [Header("References")]
+    // This connects to your upgrade system logic
     public PlayerStats playerStats;
 
     private Vector2 _moveInput;
@@ -22,6 +23,15 @@ public class MobilePlayer : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    void Start()
+    {
+        // Automatically find player stats if not dragged in the inspector
+        if (playerStats == null)
+        {
+            playerStats = GetComponent<PlayerStats>();
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -34,9 +44,9 @@ public class MobilePlayer : MonoBehaviour
         _lookInput = context.ReadValue<Vector2>();
     }
 
-    // --- UPDATED: The Shooting Function ---
     public void OnFire(InputAction.CallbackContext context)
     {
+        // Only shoot once when the button is first pressed
         if (context.started)
         {
             if (arrowPrefab != null && firePoint != null)
@@ -48,57 +58,52 @@ public class MobilePlayer : MonoBehaviour
 
     void Shoot()
     {
-        // 1. Determine stats from PlayerStats
+        // 1. GET CURRENT STATS FROM UPGRADES
         int arrowCount = 1;
         bool ricochet = false;
-        int currentDamage = 1; // Default damage if stats are missing
+        int currentDamage = 1;
 
         if (playerStats != null)
         {
-            arrowCount += playerStats.multishotCount; // e.g., 0 upgrades = 1 arrow
+            // Multishot adds extra arrows
+            arrowCount += playerStats.multishotCount;
+            // Ricochet enables bouncing
             ricochet = playerStats.hasRicochet;
-            currentDamage = playerStats.damage;       // Get damage from stats
+            // Damage uses the upgraded stat
+            currentDamage = playerStats.damage;
         }
 
-        // 2. Settings for the Spread (Cone shape)
+        // 2. CALCULATE SPREAD (Cone shape)
         float spreadAngle = 15f;
-
-        // Calculate the starting angle so the group is centered
-        // Example: 3 arrows = -15, 0, +15 degrees
         float startAngle = -(spreadAngle * (arrowCount - 1)) / 2;
 
-        // 3. Loop to create every arrow
+        // 3. SPAWN LOOP
         for (int i = 0; i < arrowCount; i++)
         {
-            // Calculate rotation for THIS specific arrow
             float currentAngle = startAngle + (i * spreadAngle);
             Quaternion rotation = transform.rotation * Quaternion.Euler(0, currentAngle, 0);
 
-            // Spawn it!
             GameObject newArrow = Instantiate(arrowPrefab, firePoint.position, rotation);
 
-            // 4. Apply Upgrades to the Arrow Script
+            // 4. APPLY STATS TO THE PROJECTILE
             ArrowProjectile arrowScript = newArrow.GetComponent<ArrowProjectile>();
             if (arrowScript != null)
             {
-                // Pass the Damage Upgrade
+                // Set the damage based on your DamageUp upgrades
                 arrowScript.damage = currentDamage;
-
-                // Pass the Ricochet Upgrade
-                if (ricochet)
-                {
-                    arrowScript.canRicochet = true;
-                }
+                // Enable bouncing if Ricochet was picked
+                if (ricochet) arrowScript.canRicochet = true;
             }
         }
     }
-    // ----------------------------------
 
     void FixedUpdate()
     {
+        // Move the player using Rigidbody for better physics interactions
         Vector3 targetVelocity = new Vector3(_moveInput.x, 0, _moveInput.y) * moveSpeed;
         _rb.linearVelocity = targetVelocity;
 
+        // Rotate towards movement or look direction
         if (_lookInput.sqrMagnitude > 0.05f)
         {
             RotateTowards(_lookInput);

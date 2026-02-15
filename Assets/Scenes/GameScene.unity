@@ -1750,7 +1750,7 @@ Transform:
   m_GameObject: {fileID: 1221370806}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35356, y: 1.93, z: 6.59}
+  m_LocalPosition: {x: 0.35356, y: 1, z: 6.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1791,7 +1791,7 @@ MonoBehaviour:
   currentLevel: 1
   currentExp: 0
   expToNextLevel: 500
-  passiveXpRate: 5
+  passiveXpRate: 100
   multishotCount: 0
   hasRicochet: 0
   hasFire: 0
@@ -2861,7 +2861,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134953551}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7804113946e9fec46a1f8c1013470fc3, type: 3}
   m_Name: 

@@ -1,64 +1,53 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class ArrowProjectile : MonoBehaviour
 {
-    [Header("Arrow Settings")]
     public float speed = 20f;
-    public float lifetime = 3f;
-    public int damage = 1;
-
-    // --- NEW: This fixes the error ---
-    [HideInInspector]
-    public bool canRicochet = false; // The Player script sets this to true
-    private int _bounceCount = 0;
-    // ---------------------------------
-
-    private Rigidbody _rb;
-
-    void Awake()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
+    public int damage = 1; // This will be set by the player when shooting
+    public bool canRicochet = false;
+    private int bounceCount = 0;
+    private int maxBounces = 2;
 
     void Start()
     {
-        // 1. Destroy after X seconds (failsafe)
-        Destroy(gameObject, lifetime);
+        // Destroy arrow after 5 seconds so they don't lag the game
+        Destroy(gameObject, 5f);
+    }
 
-        // 2. Fly Forward
-        // Note: linearVelocity is for Unity 6. If you get an error, change to 'velocity'
-        _rb.linearVelocity = transform.forward * speed;
+    void Update()
+    {
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        // 1. Ignore Player
-        if (collision.gameObject.CompareTag("Player")) return;
-
-        // 2. Hit an Enemy?
+        // 1. Check if we hit an Enemy
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (collision.gameObject.TryGetComponent<EnemyHealth>(out EnemyHealth enemy))
+            EnemyHealth enemy = collision.gameObject.GetComponent<EnemyHealth>();
+            if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage); // Uses the upgraded damage!
             }
-            Destroy(gameObject); // Arrows always break on enemies
-            return;
+            Destroy(gameObject);
         }
-
-        // 3. Hit a Wall? (Ricochet Logic)
-        if (collision.gameObject.CompareTag("Wall"))
+        // 2. Check if we hit a Wall
+        else if (collision.gameObject.CompareTag("Wall"))
         {
-            // If we have the upgrade AND haven't bounced too much...
-            if (canRicochet && _bounceCount < 2)
+            if (canRicochet && bounceCount < maxBounces)
             {
-                _bounceCount++;
-                return; // DO NOT DESTROY! Let it bounce.
+                bounceCount++;
+                // We don't destroy, the Physic Material handles the bounce direction
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
-
-        // 4. Hit anything else (or ran out of bounces) -> Destroy
-        Destroy(gameObject);
+        else
+        {
+            // Hit anything else (Floor, etc.)
+            Destroy(gameObject);
+        }
     }
 }
