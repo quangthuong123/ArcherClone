@@ -138,13 +138,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1054776496548374, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1131914997775930, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325330681446042, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1349138045652894, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_Name
       value: Canvas_DefaultMobileTemplate1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375944574801644, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4633019723609558, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_LocalPosition.x
@@ -203,8 +215,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2090690966}
     - target: {fileID: 114073300304258552, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114073300304258552, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_TextStyleHashCode
       value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 114225893006583602, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 114225893006583602, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 114424457343955264, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -213,6 +237,14 @@ PrefabInstance:
     - target: {fileID: 114869739468697534, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_TextStyleHashCode
       value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 224400215627499998, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224400215627499998, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -79
       objectReference: {fileID: 0}
     - target: {fileID: 3875763310955162078, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -229,6 +261,22 @@ PrefabInstance:
     - target: {fileID: 3875763310955162078, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: ArcherMap1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985255446188258232, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3985255446188258232, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5881325858454013778, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5881325858454013778, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 432
       objectReference: {fileID: 0}
     - target: {fileID: 5988002111575301428, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -274,9 +322,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 1396943378176368, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1054776496548374, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
