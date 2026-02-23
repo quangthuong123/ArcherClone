@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // Required for reloading the scene
 
 public class PlayerStats : MonoBehaviour
 {
@@ -13,23 +14,22 @@ public class PlayerStats : MonoBehaviour
     public float passiveXpRate = 5f;
 
     [Header("Combat Upgrades")]
-    public int multishotCount = 0; // 0 = normal
-    public int frontArrowCount = 0; // <--- NEW: For straight-line arrows
+    public int multishotCount = 0;
+    public int frontArrowCount = 0;
     public bool hasRicochet = false;
     public bool hasFire = false;
     public bool hasIce = false;
 
     [Header("Combat Stats")]
-    [Header("Combat Stats")]
     public int damage = 1;
     public float attackSpeedModifier = 1f;
-    public float critChance = 0.05f; // 5% base chance
-    public float critMultiplier = 2f; // Double damage
-    public bool hasLifeSteal = false; //
+    public float critChance = 0.05f;
+    public float critMultiplier = 2f;
+    public bool hasLifeSteal = false;
 
     [Header("UI References")]
     public Slider xpSlider;
-    public LevelUpManager levelManager; //
+    public LevelUpManager levelManager;
 
     // ==========================================
     //               2. HEALTH SYSTEM
@@ -39,10 +39,19 @@ public class PlayerStats : MonoBehaviour
     public int currentHealth;
     public FloatingHealthBar healthBar;
 
+    [Header("Game Over UI")]
+    public GameObject gameOverCanvas; // Drag your GameOverCanvas here
+
     void Start()
     {
         currentHealth = maxHealth;
-        if (healthBar != null) healthBar.UpdateHealthBar(currentHealth, maxHealth);
+
+        if (healthBar != null)
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+
+        // Ensure Game Over screen is hidden at start
+        if (gameOverCanvas != null)
+            gameOverCanvas.SetActive(false);
     }
 
     void Update()
@@ -50,6 +59,7 @@ public class PlayerStats : MonoBehaviour
         AddExp(passiveXpRate * Time.deltaTime);
     }
 
+    // --- XP FUNCTIONS ---
     public void AddExp(float amount)
     {
         currentExp += amount;
@@ -65,6 +75,7 @@ public class PlayerStats : MonoBehaviour
         if (levelManager != null) levelManager.ShowLevelUpOptions();
     }
 
+    // --- HEALTH FUNCTIONS ---
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -81,6 +92,20 @@ public class PlayerStats : MonoBehaviour
     void Die()
     {
         Debug.Log("GAME OVER");
-        Time.timeScale = 0;
+        Time.timeScale = 0; // Pause the game
+
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(true); // Show Game Over Screen
+        }
+    }
+
+    // --- RESTART FUNCTION ---
+    public void RestartGame()
+    {
+        Time.timeScale = 1; // UNPAUSE the game before reloading
+
+        // Reloads the currently active scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

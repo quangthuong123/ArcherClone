@@ -15,5 +15,5 @@ MonoBehaviour:
   upgradeName: MultiShot
   description: 
   icon: {fileID: 0}
-  statType: 4
+  statType: 7
   amount: 1

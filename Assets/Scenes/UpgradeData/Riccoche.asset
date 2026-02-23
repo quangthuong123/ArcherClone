@@ -15,5 +15,5 @@ MonoBehaviour:
   upgradeName: Ricochet
   description: 
   icon: {fileID: 0}
-  statType: 7
+  statType: 10
   amount: 1
