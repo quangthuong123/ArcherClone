@@ -1,0 +1,1 @@
+C:\Users\AZ\My project (5)\ArcherClone\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\1p2e263e\obj\arm64-v8a

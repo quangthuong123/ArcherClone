@@ -207,6 +207,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 460065801}
     - target: {fileID: 114064580186609504, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
+      propertyPath: waitForInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114064580186609504, guid: 72743ef12d244f244b6885f84968ea34, type: 3}
       propertyPath: userPromptKey
       value: 32
       objectReference: {fileID: 0}
