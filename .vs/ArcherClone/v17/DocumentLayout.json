@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\AZ\\My project (5)\\ArcherClone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{144F3114-5C5A-4601-8293-4BAF99EF99E2}|Assembly-CSharp.csproj|C:\\Users\\AZ\\My project (5)\\ArcherClone\\assets\\script\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{144F3114-5C5A-4601-8293-4BAF99EF99E2}|Assembly-CSharp.csproj|c:\\users\\az\\my project (5)\\archerclone\\assets\\script\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{144F3114-5C5A-4601-8293-4BAF99EF99E2}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -15,7 +15,7 @@
       "RelativeMoniker": "D:0:0:{144F3114-5C5A-4601-8293-4BAF99EF99E2}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\upgradedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{144F3114-5C5A-4601-8293-4BAF99EF99E2}|Assembly-CSharp.csproj|c:\\users\\az\\my project (5)\\archerclone\\assets\\script\\mobileplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{144F3114-5C5A-4601-8293-4BAF99EF99E2}|Assembly-CSharp.csproj|C:\\Users\\AZ\\My project (5)\\ArcherClone\\assets\\script\\mobileplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{144F3114-5C5A-4601-8293-4BAF99EF99E2}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\mobileplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -110,8 +110,7 @@
               "RelativeToolTip": "Assets\\Script\\LevelUpManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-20T06:22:34.695Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-20T06:22:34.695Z"
             },
             {
               "$type": "Document",
@@ -135,8 +134,7 @@
               "RelativeToolTip": "Assets\\Script\\MobilePlayer.cs",
               "ViewState": "AgIAAEEAAAAAAAAAAAAiwFgAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-17T07:13:44.858Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-17T07:13:44.858Z"
             },
             {
               "$type": "Document",
@@ -148,8 +146,7 @@
               "RelativeToolTip": "Assets\\Script\\UpgradeData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-17T07:07:00.415Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-17T07:07:00.415Z"
             },
             {
               "$type": "Document",
@@ -161,8 +158,7 @@
               "RelativeToolTip": "Assets\\Script\\ArrowProjectile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-17T07:06:50.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-17T07:06:50.799Z"
             },
             {
               "$type": "Document",
@@ -172,7 +168,7 @@
               "RelativeDocumentMoniker": "Assets\\Script\\PlayerStats.cs",
               "ToolTip": "C:\\Users\\AZ\\My project (5)\\ArcherClone\\Assets\\Script\\PlayerStats.cs",
               "RelativeToolTip": "Assets\\Script\\PlayerStats.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAgwG4AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAgwHUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-17T07:04:44.203Z",
               "EditorCaption": ""
