@@ -1,51 +1,61 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // Required for reloading the scene
 
 public class PlayerStats : MonoBehaviour
 {
     // ==========================================
-    //              1. LEVEL / XP SYSTEM
+    //               1. LEVEL / XP SYSTEM
     // ==========================================
     [Header("XP System")]
     public int currentLevel = 1;
     public float currentExp = 0;
     public float expToNextLevel = 100;
     public float passiveXpRate = 5f;
+
     [Header("Combat Upgrades")]
-    public int multishotCount = 0; // 0 = normal, 1 = double shot, etc.
+    public int multishotCount = 0;
+    public int frontArrowCount = 0;
     public bool hasRicochet = false;
     public bool hasFire = false;
     public bool hasIce = false;
+
     [Header("Combat Stats")]
-    public int damage = 1; // <--- ADD THIS VARIABLE!
-    [Tooltip("The Yellow Slider stuck to the top of the screen")]
+    public int damage = 1;
+    public float attackSpeedModifier = 1f;
+    public float critChance = 0.05f;
+    public float critMultiplier = 2f;
+    public bool hasLifeSteal = false;
+
+    [Header("UI References")]
     public Slider xpSlider;
+    public LevelUpManager levelManager;
 
     // ==========================================
-    //              2. HEALTH SYSTEM
+    //               2. HEALTH SYSTEM
     // ==========================================
     [Header("Health System")]
     public int maxHealth = 100;
     public int currentHealth;
-
-    [Tooltip("The Red Slider floating above the player's head")]
     public FloatingHealthBar healthBar;
+
+    [Header("Game Over UI")]
+    public GameObject gameOverCanvas; // Drag your GameOverCanvas here
 
     void Start()
     {
-        // Initialize Health
         currentHealth = maxHealth;
 
-        // Initialize the Health Bar visual
         if (healthBar != null)
-        {
             healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        }
+
+        // Ensure Game Over screen is hidden at start
+        if (gameOverCanvas != null)
+            gameOverCanvas.SetActive(false);
     }
 
     void Update()
     {
-        // Passive XP Gain over time
         AddExp(passiveXpRate * Time.deltaTime);
     }
 
@@ -53,74 +63,57 @@ public class PlayerStats : MonoBehaviour
     public void AddExp(float amount)
     {
         currentExp += amount;
-
-        if (xpSlider != null)
-        {
-            xpSlider.value = currentExp / expToNextLevel;
-        }
-
-        if (currentExp >= expToNextLevel)
-        {
-            LevelUp();
-        }
+        if (xpSlider != null) xpSlider.value = currentExp / expToNextLevel;
+        if (currentExp >= expToNextLevel) LevelUp();
     }
-
-    // Add variable at top
-    public LevelUpManager levelManager;
 
     void LevelUp()
     {
         currentLevel++;
         currentExp = 0;
         expToNextLevel *= 1.2f;
-        if (xpSlider != null) xpSlider.value = 0;
-
-        // CALL THE MANAGER
-        if (levelManager != null)
-        {
-            levelManager.ShowLevelUpOptions();
-        }
+        if (levelManager != null) levelManager.ShowLevelUpOptions();
     }
 
-    // --- NEW HEALTH FUNCTIONS ---
+    // --- HEALTH FUNCTIONS ---
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log("Player HP: " + currentHealth);
-
-        // Update the Floating Bar
-        if (healthBar != null)
-        {
-            healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        }
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (healthBar != null) healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        if (currentHealth <= 0) Die();
     }
-    // Add this to PlayerStats.cs
+
     public void Heal(int amount)
     {
-        currentHealth += amount;
-
-        // Don't overheat (go above max)
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-
-        // Update UI
-        if (healthBar != null)
-        {
-            healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        }
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        if (healthBar != null) healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     void Die()
     {
         Debug.Log("GAME OVER");
-        Time.timeScale = 0; // Pause everything
-        // TODO: Show Game Over Screen
+        Time.timeScale = 0; // Pause the game
+
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(true); // Show Game Over Screen
+        }
+    }
+
+    // --- RESTART FUNCTION ---
+    public void RestartGame()
+    {
+        Time.timeScale = 1; // UNPAUSE the game before reloading
+
+        // Reloads the currently active scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    // --- RETURN TO TITLE FUNCTION ---
+    public void ReturnToTitle()
+    {
+        Time.timeScale = 1; // UNPAUSE the game so the menu works correctly
+
+        // Loads the scene at index 0 (UI-Start)
+        SceneManager.LoadScene(0);
     }
 }

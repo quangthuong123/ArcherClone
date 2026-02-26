@@ -1,0 +1,2 @@
+C:\Users\AZ\My project (5)\ArcherClone\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\AZ\My project (5)\ArcherClone\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class LevelUpManager : MonoBehaviour
 {
@@ -8,12 +9,13 @@ public class LevelUpManager : MonoBehaviour
     public GameObject levelUpPanel;
     public Button[] optionButtons;
     public TMP_Text[] optionTexts;
+    public Image[] optionIcons; // Drag the Image components of your 3 button icons here
 
     [Header("Data")]
     public UpgradeData[] allUpgrades; // Drag your ScriptableObjects here
 
     private PlayerStats playerStats;
-    private MobilePlayer playerMovement; // Reference to change speed
+    private MobilePlayer playerMovement;
 
     void Start()
     {
@@ -30,21 +32,18 @@ public class LevelUpManager : MonoBehaviour
         Time.timeScale = 0;
         levelUpPanel.SetActive(true);
 
-        // --- NEW LOGIC START ---
-
         // Create a temporary copy of your "Deck" so we can remove cards from it
-        System.Collections.Generic.List<UpgradeData> deck = new System.Collections.Generic.List<UpgradeData>(allUpgrades);
+        List<UpgradeData> deck = new List<UpgradeData>(allUpgrades);
 
         for (int i = 0; i < optionButtons.Length; i++)
         {
             // Safety Check: Do we have enough upgrades left in the deck?
             if (deck.Count == 0)
             {
-                optionButtons[i].gameObject.SetActive(false); // Hide button if no upgrades left
+                optionButtons[i].gameObject.SetActive(false);
                 continue;
             }
 
-            // Turn button on just in case it was off
             optionButtons[i].gameObject.SetActive(true);
 
             // Pick a random index from the REMAINING cards
@@ -54,11 +53,19 @@ public class LevelUpManager : MonoBehaviour
             // REMOVE it from the deck so it can't be picked again this round
             deck.RemoveAt(randomIndex);
 
-            // --- NEW LOGIC END ---
-
             // Setup the text
             if (optionTexts[i] != null)
+            {
                 optionTexts[i].text = "<b>" + data.upgradeName + "</b>\n" + data.description;
+            }
+
+            // --- ICON LOGIC ---
+            // Assign the sprite from your UpgradeData asset to the UI Image
+            if (optionIcons[i] != null && data.icon != null)
+            {
+                optionIcons[i].sprite = data.icon;
+                optionIcons[i].gameObject.SetActive(true);
+            }
 
             // Click Event
             optionButtons[i].onClick.RemoveAllListeners();
@@ -79,9 +86,11 @@ public class LevelUpManager : MonoBehaviour
     {
         Debug.Log("Selected: " + data.upgradeName);
 
+        if (playerStats == null) return;
+
         switch (data.statType)
         {
-            // --- STATS ---
+            // --- BASIC STATS ---
             case StatType.MaxHealth:
                 playerStats.maxHealth += (int)data.amount;
                 playerStats.Heal((int)data.amount);
@@ -98,17 +107,30 @@ public class LevelUpManager : MonoBehaviour
                 }
                 break;
 
-            // --- WEAPONS ---
+            // --- COMBAT PASSIVES ---
+            case StatType.AttackSpeed:
+                playerStats.attackSpeedModifier += data.amount;
+                break;
+
+            case StatType.CritChance:
+                playerStats.critChance += data.amount;
+                break;
+
+            case StatType.LifeSteal:
+                playerStats.hasLifeSteal = true;
+                break;
+
+            // --- PROJECTILE UPGRADES ---
             case StatType.Multishot:
                 playerStats.multishotCount++;
                 break;
 
-            case StatType.Ricochet:
-                playerStats.hasRicochet = true;
+            case StatType.FrontArrow:
+                playerStats.frontArrowCount++;
                 break;
 
-            case StatType.FrontArrow:
-                // Logic for front arrow if you add it later
+            case StatType.Ricochet:
+                playerStats.hasRicochet = true;
                 break;
         }
     }

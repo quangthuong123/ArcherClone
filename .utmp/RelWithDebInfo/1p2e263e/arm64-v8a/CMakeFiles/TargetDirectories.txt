@@ -1,0 +1,5 @@
+C:/Users/AZ/My project (5)/ArcherClone/.utmp/RelWithDebInfo/1p2e263e/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/AZ/My project (5)/ArcherClone/.utmp/RelWithDebInfo/1p2e263e/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/AZ/My project (5)/ArcherClone/.utmp/RelWithDebInfo/1p2e263e/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/AZ/My project (5)/ArcherClone/.utmp/RelWithDebInfo/1p2e263e/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/AZ/My project (5)/ArcherClone/.utmp/RelWithDebInfo/1p2e263e/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

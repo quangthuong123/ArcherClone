@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using Terresquall; // Ensure this namespace is here
 
 [RequireComponent(typeof(Rigidbody))]
 public class MobilePlayer : MonoBehaviour
@@ -8,116 +8,119 @@ public class MobilePlayer : MonoBehaviour
     public float moveSpeed = 10f;
     public float rotationSpeed = 720f;
 
+    [Header("Joystick IDs")]
+    public int moveJoystickID = 0; // Left Joystick
+    public int aimJoystickID = 1;  // Right Joystick
+
     [Header("Combat")]
     public GameObject arrowPrefab;
     public Transform firePoint;
+    public float baseFireRate = 1f;
 
     [Header("References")]
-    // This connects to your upgrade system logic
     public PlayerStats playerStats;
+    private Animator _animator; // Added for animations
 
-    private Vector2 _moveInput;
-    private Vector2 _lookInput;
     private Rigidbody _rb;
+    private float _fireTimer;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        // Get the animator from the child model (Archer Warrior)
+        _animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
     {
-        // Automatically find player stats if not dragged in the inspector
-        if (playerStats == null)
-        {
-            playerStats = GetComponent<PlayerStats>();
-        }
+        if (playerStats == null) playerStats = GetComponent<PlayerStats>();
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    void Update()
     {
-        _moveInput = context.ReadValue<Vector2>();
-    }
+        if (_fireTimer > 0) _fireTimer -= Time.deltaTime;
 
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        _lookInput = context.ReadValue<Vector2>();
-    }
-
-    public void OnFire(InputAction.CallbackContext context)
-    {
-        // Only shoot once when the button is first pressed
-        if (context.started)
+        // AUTOMATIC SHOOTING: Reads Aiming Joystick (ID 1)
+        Vector2 aimInput = VirtualJoystick.GetAxis(aimJoystickID);
+        if (aimInput.sqrMagnitude > 0.2f && _fireTimer <= 0)
         {
-            if (arrowPrefab != null && firePoint != null)
-            {
-                Shoot();
-            }
-        }
-    }
-
-    void Shoot()
-    {
-        // 1. GET CURRENT STATS FROM UPGRADES
-        int arrowCount = 1;
-        bool ricochet = false;
-        int currentDamage = 1;
-
-        if (playerStats != null)
-        {
-            // Multishot adds extra arrows
-            arrowCount += playerStats.multishotCount;
-            // Ricochet enables bouncing
-            ricochet = playerStats.hasRicochet;
-            // Damage uses the upgraded stat
-            currentDamage = playerStats.damage;
-        }
-
-        // 2. CALCULATE SPREAD (Cone shape)
-        float spreadAngle = 15f;
-        float startAngle = -(spreadAngle * (arrowCount - 1)) / 2;
-
-        // 3. SPAWN LOOP
-        for (int i = 0; i < arrowCount; i++)
-        {
-            float currentAngle = startAngle + (i * spreadAngle);
-            Quaternion rotation = transform.rotation * Quaternion.Euler(0, currentAngle, 0);
-
-            GameObject newArrow = Instantiate(arrowPrefab, firePoint.position, rotation);
-
-            // 4. APPLY STATS TO THE PROJECTILE
-            ArrowProjectile arrowScript = newArrow.GetComponent<ArrowProjectile>();
-            if (arrowScript != null)
-            {
-                // Set the damage based on your DamageUp upgrades
-                arrowScript.damage = currentDamage;
-                // Enable bouncing if Ricochet was picked
-                if (ricochet) arrowScript.canRicochet = true;
-            }
+            Shoot();
+            ResetFireTimer();
         }
     }
 
     void FixedUpdate()
     {
-        // Move the player using Rigidbody for better physics interactions
-        Vector3 targetVelocity = new Vector3(_moveInput.x, 0, _moveInput.y) * moveSpeed;
-        _rb.linearVelocity = targetVelocity;
+        // 1. MOVEMENT: Reads Movement Joystick (ID 0)
+        Vector2 moveInput = VirtualJoystick.GetAxis(moveJoystickID);
+        _rb.linearVelocity = new Vector3(moveInput.x, 0, moveInput.y) * moveSpeed;
 
-        // Rotate towards movement or look direction
-        if (_lookInput.sqrMagnitude > 0.05f)
+        // 2. ANIMATION: Set Speed float for Movement Blend
+        if (_animator != null)
         {
-            RotateTowards(_lookInput);
+            float speedPercent = moveInput.magnitude;
+            _animator.SetFloat("Speed", speedPercent);
         }
-        else if (_moveInput.sqrMagnitude > 0.05f)
+
+        // 3. ROTATION: Prioritize Aiming over Movement
+        Vector2 aimInput = VirtualJoystick.GetAxis(aimJoystickID);
+
+        if (aimInput.sqrMagnitude > 0.05f)
         {
-            RotateTowards(_moveInput);
+            RotateTowards(aimInput);
+        }
+        else if (moveInput.sqrMagnitude > 0.05f)
+        {
+            RotateTowards(moveInput);
         }
     }
 
-    void RotateTowards(Vector2 direction)
+    void ResetFireTimer()
     {
-        float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+        float speedMod = (playerStats != null) ? playerStats.attackSpeedModifier : 1f;
+        _fireTimer = baseFireRate / speedMod;
+    }
+
+    void Shoot()
+    {
+        // 1. Trigger Attack Animation ONLY
+        if (_animator != null)
+        {
+            _animator.SetTrigger("Attack");
+        }
+    }
+
+    // 2. PROJECTILE SPAWNING: Called by the Animation Event on the Timeline
+    public void SpawnArrow()
+    {
+        int multishot = 1 + (playerStats != null ? playerStats.multishotCount : 0);
+        int frontArrows = (playerStats != null ? playerStats.frontArrowCount : 0);
+
+        float spreadAngle = 15f;
+        float startAngle = -(spreadAngle * (multishot - 1)) / 2;
+
+        for (int f = 0; f <= frontArrows; f++)
+        {
+            Vector3 offset = transform.forward * (f * 0.4f);
+            for (int i = 0; i < multishot; i++)
+            {
+                float currentAngle = startAngle + (i * spreadAngle);
+                Quaternion rotation = transform.rotation * Quaternion.Euler(0, currentAngle, 0);
+                GameObject arrow = Instantiate(arrowPrefab, firePoint.position + offset, rotation);
+
+                ArrowProjectile script = arrow.GetComponent<ArrowProjectile>();
+                if (script != null && playerStats != null)
+                {
+                    script.damage = playerStats.damage;
+                    script.canRicochet = playerStats.hasRicochet;
+                }
+            }
+        }
+    }
+
+    void RotateTowards(Vector2 dir)
+    {
+        float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, angle, 0), rotationSpeed * Time.fixedDeltaTime);
     }
 }
