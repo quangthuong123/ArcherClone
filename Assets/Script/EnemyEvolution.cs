@@ -17,10 +17,12 @@ public class EnemyEvolution : MonoBehaviour
     public int damageBuff = 1;
 
     private EnemyHealth _healthScript;
+    [SerializeField] private GameObject EnemyVisual;
 
     void Awake()
     {
         _healthScript = GetComponent<EnemyHealth>();
+
     }
 
     void Update()
@@ -51,19 +53,12 @@ public class EnemyEvolution : MonoBehaviour
         damageAmount += damageBuff;
 
         // 2. Only grow size every 5 levels (5, 10, 15, 20)
-        if (currentLevel % 5 == 0)
+        int mileStoneLevel = 5;
+        if (currentLevel % mileStoneLevel == 0)
         {
             transform.localScale *= 1.3f; // Big growth spurt!
-
-            // Visual feedback: Flash red to show they evolved
-            GetComponent<Renderer>().material.color = Color.red;
-            Debug.Log("BOSS EVOLUTION! Enemy hit Level " + currentLevel);
         }
-        else
-        {
-            // Just a small color tint for normal levels
-            GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, (float)currentLevel / maxLevel);
-        }
+        EnemyVisual.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, (float)currentLevel % 5 / mileStoneLevel);
     }
 
     void OnCollisionEnter(Collision collision)
