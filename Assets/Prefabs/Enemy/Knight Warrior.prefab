@@ -624,8 +624,6 @@ GameObject:
   - component: {fileID: -1209168520518259358}
   - component: {fileID: -8099216594599986711}
   - component: {fileID: -1529897580108590703}
-  - component: {fileID: 7449175459065163361}
-  - component: {fileID: -970001439074883911}
   m_Layer: 0
   m_Name: Knight Warrior
   m_TagString: Enemy
@@ -719,7 +717,7 @@ MonoBehaviour:
   isRanged: 0
   attackRange: 2
   attackCooldown: 1.5
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 6596267991080439820, guid: f595c7555c564e14b8cc887afbe2b6de, type: 3}
   firePoint: {fileID: 7621109327736308424}
 --- !u!114 &-8099216594599986711
 MonoBehaviour:
@@ -756,40 +754,6 @@ MonoBehaviour:
   passiveXpRate: 5
   healthBuff: 2
   damageBuff: 1
---- !u!95 &7449175459065163361
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2312287585338457339}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 417a287abb2cab94889f1f1ddd91f928, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5fbed9cae3571aa4f8273283e531893a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-970001439074883911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2312287585338457339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d686d17d00575438464e57bea57341, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AnimationEventRelay
 --- !u!1 &2548870776970424183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,6 +1955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5775041727116010045}
   - component: {fileID: 4125158822060981604}
+  - component: {fileID: 8631769271595120465}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -2030,7 +1995,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5fbed9cae3571aa4f8273283e531893a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -2039,6 +2004,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8631769271595120465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8473493590216194590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1d686d17d00575438464e57bea57341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationEventRelay
 --- !u!1 &8501945065328960467
 GameObject:
   m_ObjectHideFlags: 0

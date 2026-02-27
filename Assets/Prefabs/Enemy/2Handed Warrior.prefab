@@ -575,8 +575,6 @@ GameObject:
   - component: {fileID: 9180464605768642670}
   - component: {fileID: 7535919794250052600}
   - component: {fileID: -4077007921370442561}
-  - component: {fileID: 7885086730195087002}
-  - component: {fileID: -4752225416916961023}
   m_Layer: 0
   m_Name: 2Handed Warrior
   m_TagString: Enemy
@@ -670,7 +668,7 @@ MonoBehaviour:
   isRanged: 0
   attackRange: 2
   attackCooldown: 1.5
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 6596267991080439820, guid: f595c7555c564e14b8cc887afbe2b6de, type: 3}
   firePoint: {fileID: 8224568261155147643}
 --- !u!114 &7535919794250052600
 MonoBehaviour:
@@ -707,40 +705,6 @@ MonoBehaviour:
   passiveXpRate: 5
   healthBuff: 2
   damageBuff: 1
---- !u!95 &7885086730195087002
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2470364405374223520}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 781a15e490c144941adf6440cf6b6cdd, type: 3}
-  m_Controller: {fileID: 9100000, guid: eedd95950d7c15e4eb7d88267e566406, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-4752225416916961023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2470364405374223520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d686d17d00575438464e57bea57341, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AnimationEventRelay
 --- !u!1 &2720495913919893793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,6 +1452,7 @@ GameObject:
   - component: {fileID: 8902649224859071910}
   - component: {fileID: 1559673483349793594}
   - component: {fileID: 1997607131360421710}
+  - component: {fileID: 7056054134578836183}
   m_Layer: 0
   m_Name: 2Handed
   m_TagString: Untagged
@@ -1526,7 +1491,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: eedd95950d7c15e4eb7d88267e566406, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1552,6 +1517,18 @@ MonoBehaviour:
   canBeUsed: 0
   leftHandPositionWeight: 0
   leftHandRotationWeight: 0
+--- !u!114 &7056054134578836183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6349589599688326749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1d686d17d00575438464e57bea57341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationEventRelay
 --- !u!1 &6602342697941893417
 GameObject:
   m_ObjectHideFlags: 0

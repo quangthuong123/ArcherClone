@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6294573696763369167}
   - component: {fileID: 2825913958701425602}
+  - component: {fileID: 2593271263754646203}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Untagged
@@ -112,7 +113,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 537cff3fb7ebcef4096f3d9aa18a257e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -121,6 +122,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2593271263754646203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828246631707186146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1d686d17d00575438464e57bea57341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationEventRelay
 --- !u!1 &877639484813750341
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,8 +657,6 @@ GameObject:
   - component: {fileID: -96984113212722935}
   - component: {fileID: -3691784957359515236}
   - component: {fileID: -3023741084219895967}
-  - component: {fileID: 5814040573447409434}
-  - component: {fileID: 8066868831358484991}
   m_Layer: 0
   m_Name: Mage Warrior
   m_TagString: Enemy
@@ -737,7 +748,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 360
   isRanged: 1
-  attackRange: 2
+  attackRange: 10
   attackCooldown: 1.5
   projectilePrefab: {fileID: 6596267991080439820, guid: f595c7555c564e14b8cc887afbe2b6de, type: 3}
   firePoint: {fileID: 75226166870441812}
@@ -776,40 +787,6 @@ MonoBehaviour:
   passiveXpRate: 5
   healthBuff: 2
   damageBuff: 1
---- !u!95 &5814040573447409434
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3001920226566134293}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 7c72ed3f90575084c9f3b5b585887182, type: 3}
-  m_Controller: {fileID: 9100000, guid: 537cff3fb7ebcef4096f3d9aa18a257e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8066868831358484991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3001920226566134293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d686d17d00575438464e57bea57341, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AnimationEventRelay
 --- !u!1 &3112350739190718792
 GameObject:
   m_ObjectHideFlags: 0
